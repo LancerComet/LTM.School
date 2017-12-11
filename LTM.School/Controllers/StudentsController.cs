@@ -8,35 +8,28 @@ using Microsoft.EntityFrameworkCore;
 using LTM.School.Core.Models;
 using LTM.School.EntityFramework;
 
-namespace LTM.School.Controllers
-{
-    public class StudentsController : Controller
-    {
+namespace LTM.School.Controllers {
+    public class StudentsController : Controller {
         private readonly SchoolDbContext _context;
 
-        public StudentsController(SchoolDbContext context)
-        {
+        public StudentsController(SchoolDbContext context) {
             _context = context;
         }
 
         // GET: Students
-        public async Task<IActionResult> Index()
-        {
+        public async Task<IActionResult> Index() {
             return View(await _context.Students.ToListAsync());
         }
 
         // GET: Students/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<IActionResult> Details(int? id) {
+            if (id == null) {
                 return NotFound();
             }
 
             var student = await _context.Students
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (student == null)
-            {
+            if (student == null) {
                 return NotFound();
             }
 
@@ -44,8 +37,7 @@ namespace LTM.School.Controllers
         }
 
         // GET: Students/Create
-        public IActionResult Create()
-        {
+        public IActionResult Create() {
             return View();
         }
 
@@ -54,10 +46,8 @@ namespace LTM.School.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,EnrollmentDate")] Student student)
-        {
-            if (ModelState.IsValid)
-            {
+        public async Task<IActionResult> Create([Bind("Id,Name,EnrollmentDate")] Student student) {
+            if (ModelState.IsValid) {
                 _context.Add(student);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -66,16 +56,13 @@ namespace LTM.School.Controllers
         }
 
         // GET: Students/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<IActionResult> Edit(int? id) {
+            if (id == null) {
                 return NotFound();
             }
 
             var student = await _context.Students.SingleOrDefaultAsync(m => m.Id == id);
-            if (student == null)
-            {
+            if (student == null) {
                 return NotFound();
             }
             return View(student);
@@ -86,28 +73,19 @@ namespace LTM.School.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,EnrollmentDate")] Student student)
-        {
-            if (id != student.Id)
-            {
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,EnrollmentDate")] Student student) {
+            if (id != student.Id) {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
+            if (ModelState.IsValid) {
+                try {
                     _context.Update(student);
                     await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!StudentExists(student.Id))
-                    {
+                } catch (DbUpdateConcurrencyException) {
+                    if (!StudentExists(student.Id)) {
                         return NotFound();
-                    }
-                    else
-                    {
+                    } else {
                         throw;
                     }
                 }
@@ -117,17 +95,14 @@ namespace LTM.School.Controllers
         }
 
         // GET: Students/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<IActionResult> Delete(int? id) {
+            if (id == null) {
                 return NotFound();
             }
 
             var student = await _context.Students
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (student == null)
-            {
+            if (student == null) {
                 return NotFound();
             }
 
@@ -137,16 +112,14 @@ namespace LTM.School.Controllers
         // POST: Students/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
+        public async Task<IActionResult> DeleteConfirmed(int id) {
             var student = await _context.Students.SingleOrDefaultAsync(m => m.Id == id);
             _context.Students.Remove(student);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool StudentExists(int id)
-        {
+        private bool StudentExists(int id) {
             return _context.Students.Any(e => e.Id == id);
         }
     }

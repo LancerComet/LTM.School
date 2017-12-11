@@ -65,31 +65,30 @@ namespace LTM.School.EntityFramework.Data {
             }
 
             if (!context.Enrollments.Any()) {
+                // 如果 Enrollments 创建失败, 请检查学生 ID 是否和上方一致.
                 var enrollments = new Enrollment[] {
-                    // For 学生 0.
                     new Enrollment() {
-                        StudentId = 0, CourseId = 1, Grade = CourseGrade.B
+                        StudentId = 1, CourseId = 1, Grade = CourseGrade.B
                     },
 
                     new Enrollment() {
-                       StudentId = 0, CourseId = 2, Grade = CourseGrade.A
+                        StudentId = 1, CourseId = 2, Grade = CourseGrade.A
                     },
 
                     new Enrollment() {
-                        StudentId = 0, CourseId = 3, Grade = CourseGrade.C
-                    },
-
-                    // For 学生 1.
-                    new Enrollment() {
-                        StudentId = 1, CourseId = 1, Grade = CourseGrade.D
+                        StudentId = 1, CourseId = 3, Grade = CourseGrade.C
                     },
 
                     new Enrollment() {
-                        StudentId = 1, CourseId = 4, Grade = CourseGrade.E
+                        StudentId = 2, CourseId = 1, Grade = CourseGrade.D
                     },
 
                     new Enrollment() {
-                        StudentId = 1, CourseId = 5, Grade = CourseGrade.F
+                        StudentId = 2, CourseId = 4, Grade = CourseGrade.E
+                    },
+
+                    new Enrollment() {
+                        StudentId = 2, CourseId = 5, Grade = CourseGrade.F
                     }
                 };
 
