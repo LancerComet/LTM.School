@@ -29,3 +29,4 @@ namespace LTM.School.Core.Models {
         public ICollection<Enrollment> Enrollments { get; set; }
     }
 }
+

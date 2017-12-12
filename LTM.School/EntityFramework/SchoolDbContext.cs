@@ -12,7 +12,7 @@ namespace LTM.School.EntityFramework {
         protected override void OnModelCreating (ModelBuilder modelBuilder) {
         }
 
-        public SchoolDbContext(DbContextOptions<SchoolDbContext> options) : base(options) {
+        public SchoolDbContext (DbContextOptions<SchoolDbContext> options) : base(options) {
         }
     }
 }
