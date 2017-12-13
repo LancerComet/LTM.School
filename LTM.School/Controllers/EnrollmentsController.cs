@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,35 +8,30 @@ using Microsoft.EntityFrameworkCore;
 using LTM.School.Core.Models;
 using LTM.School.EntityFramework;
 
-namespace LTM.School.Controllers
-{
-    public class EnrollmentsController : Controller
-    {
+namespace LTM.School.Controllers {
+    public class EnrollmentsController : Controller {
         private readonly SchoolDbContext _context;
 
-        public EnrollmentsController(SchoolDbContext context)
-        {
+        public EnrollmentsController(SchoolDbContext context) {
             _context = context;
         }
 
         // GET: Enrollments
-        public async Task<IActionResult> Index()
-        {
+        public async Task<IActionResult> Index() {
             return View(await _context.Enrollments.ToListAsync());
         }
 
         // GET: Enrollments/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<IActionResult> Details(int? id) {
+            if (id == null) {
                 return NotFound();
             }
 
-            var enrollment = await _context.Enrollments
+            var enrollment = await _context
+                .Enrollments
                 .SingleOrDefaultAsync(m => m.EnrollmentId == id);
-            if (enrollment == null)
-            {
+
+            if (enrollment == null) {
                 return NotFound();
             }
 
@@ -44,8 +39,7 @@ namespace LTM.School.Controllers
         }
 
         // GET: Enrollments/Create
-        public IActionResult Create()
-        {
+        public IActionResult Create() {
             return View();
         }
 
@@ -54,10 +48,8 @@ namespace LTM.School.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EnrollmentId,StudentId,CourseId,Grade")] Enrollment enrollment)
-        {
-            if (ModelState.IsValid)
-            {
+        public async Task<IActionResult> Create([Bind("EnrollmentId,StudentId,CourseId,Grade")] Enrollment enrollment) {
+            if (ModelState.IsValid) {
                 _context.Add(enrollment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -66,16 +58,13 @@ namespace LTM.School.Controllers
         }
 
         // GET: Enrollments/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<IActionResult> Edit(int? id) {
+            if (id == null) {
                 return NotFound();
             }
 
             var enrollment = await _context.Enrollments.SingleOrDefaultAsync(m => m.EnrollmentId == id);
-            if (enrollment == null)
-            {
+            if (enrollment == null) {
                 return NotFound();
             }
             return View(enrollment);
@@ -86,28 +75,19 @@ namespace LTM.School.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EnrollmentId,StudentId,CourseId,Grade")] Enrollment enrollment)
-        {
-            if (id != enrollment.EnrollmentId)
-            {
+        public async Task<IActionResult> Edit(int id, [Bind("EnrollmentId,StudentId,CourseId,Grade")] Enrollment enrollment) {
+            if (id != enrollment.EnrollmentId) {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
+            if (ModelState.IsValid) {
+                try {
                     _context.Update(enrollment);
                     await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!EnrollmentExists(enrollment.EnrollmentId))
-                    {
+                } catch (DbUpdateConcurrencyException) {
+                    if (!EnrollmentExists(enrollment.EnrollmentId)) {
                         return NotFound();
-                    }
-                    else
-                    {
+                    } else {
                         throw;
                     }
                 }
@@ -117,17 +97,14 @@ namespace LTM.School.Controllers
         }
 
         // GET: Enrollments/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<IActionResult> Delete(int? id) {
+            if (id == null) {
                 return NotFound();
             }
 
             var enrollment = await _context.Enrollments
                 .SingleOrDefaultAsync(m => m.EnrollmentId == id);
-            if (enrollment == null)
-            {
+            if (enrollment == null) {
                 return NotFound();
             }
 
@@ -137,16 +114,14 @@ namespace LTM.School.Controllers
         // POST: Enrollments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
+        public async Task<IActionResult> DeleteConfirmed(int id) {
             var enrollment = await _context.Enrollments.SingleOrDefaultAsync(m => m.EnrollmentId == id);
             _context.Enrollments.Remove(enrollment);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EnrollmentExists(int id)
-        {
+        private bool EnrollmentExists(int id) {
             return _context.Enrollments.Any(e => e.EnrollmentId == id);
         }
     }

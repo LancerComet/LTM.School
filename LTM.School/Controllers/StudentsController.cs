@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LTM.School.Core.Models;
 using LTM.School.EntityFramework;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace LTM.School.Controllers {
     public class StudentsController : Controller {
@@ -27,8 +28,10 @@ namespace LTM.School.Controllers {
                 return NotFound();
             }
 
-            var student = await _context.Students
+            var student = await _context
+                .Students
                 .SingleOrDefaultAsync(m => m.Id == id);
+
             if (student == null) {
                 return NotFound();
             }
@@ -45,13 +48,20 @@ namespace LTM.School.Controllers {
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,EnrollmentDate")] Student student) {
-            if (ModelState.IsValid) {
-                _context.Add(student);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+        [ValidateAntiForgeryToken]  // 防止 CSRF.
+        public async Task<IActionResult> Create([Bind("Name,EnrollmentDate")] Student student) {
+            try {
+                if (ModelState.IsValid) {
+                    _context.Add(student);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));  // 返回至 index 页面.
+                }
+            } catch (DbUpdateException error) {
+                ModelState.AddModelError("", "Student 数据错误, 无法保存至数据库.");
+                Console.WriteLine(error);
+                throw;
             }
+
             return View(student);
         }
 

@@ -1,41 +1,59 @@
-﻿@model LTM.School.Core.Models.Student
-
+@model LTM.School.Core.Models.Student
 @{
     ViewData["Title"] = "Details";
 }
-
 <h2>Details</h2>
 
 <div>
     <h4>Student</h4>
     <hr />
     <dl class="dl-horizontal">
+        <!-- Id. -->
         <dt>
             @Html.DisplayNameFor(model => model.Id)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Id)
         </dd>
-
+        <!-- Name. -->
         <dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
-
+        <!-- Enrollment Date. -->
         <dt>
             @Html.DisplayNameFor(model => model.EnrollmentDate)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.EnrollmentDate)
         </dd>
-
+        <!-- Enrollments. -->
         <dt>
             @Html.DisplayNameFor(model => model.Enrollments)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Enrollments)
+            <table class="table enrollments-table">
+                <thead>
+                    <tr>
+                        <td>课程</td>
+                        <td>成绩</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Enrollments != null) {
+                        @foreach (var item in Model.Enrollments) {
+                        }
+                    } else {
+                        <tr>
+                            <td>--</td>
+                            <td>--</td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
         </dd>
     </dl>
 </div>

@@ -1,4 +1,4 @@
-﻿using LTM.School.Core.Models;
+using LTM.School.Core.Models;
 using LTM.School.Application.enumsType;
 
 using System;
@@ -23,11 +23,13 @@ namespace LTM.School.EntityFramework.Data {
             if (!context.Students.Any()) {
                 var students = new Student[] {
                     new Student() {
-                        Name = "LancerComet", EnrollmentDate = DateTime.Parse("2017-12-11")
+                        Name = "LancerComet",
+                        EnrollmentDate = DateTime.Parse("2017-12-11")
                     },
 
                     new Student() {
-                        Name = "Wch", EnrollmentDate = DateTime.Parse("2017-12-11")
+                        Name = "Wch",
+                        EnrollmentDate = DateTime.Parse("2017-12-11")
                     }
                 };
 
@@ -68,27 +70,27 @@ namespace LTM.School.EntityFramework.Data {
                 // 如果 Enrollments 创建失败, 请检查学生 ID 是否和上方一致.
                 var enrollments = new Enrollment[] {
                     new Enrollment() {
-                        StudentId = 1, CourseId = 1, Grade = CourseGrade.B
+                        StudentId = 11, CourseId = 1, Grade = CourseGrade.B
                     },
 
                     new Enrollment() {
-                        StudentId = 1, CourseId = 2, Grade = CourseGrade.A
+                        StudentId = 11, CourseId = 2, Grade = CourseGrade.A
                     },
 
                     new Enrollment() {
-                        StudentId = 1, CourseId = 3, Grade = CourseGrade.C
+                        StudentId = 11, CourseId = 3, Grade = CourseGrade.C
                     },
 
                     new Enrollment() {
-                        StudentId = 2, CourseId = 1, Grade = CourseGrade.D
+                        StudentId = 12, CourseId = 1, Grade = CourseGrade.D
                     },
 
                     new Enrollment() {
-                        StudentId = 2, CourseId = 4, Grade = CourseGrade.E
+                        StudentId = 12, CourseId = 4, Grade = CourseGrade.E
                     },
 
                     new Enrollment() {
-                        StudentId = 2, CourseId = 5, Grade = CourseGrade.F
+                        StudentId = 12, CourseId = 5, Grade = CourseGrade.F
                     }
                 };
 

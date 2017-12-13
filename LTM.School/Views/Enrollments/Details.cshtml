@@ -1,4 +1,4 @@
-﻿@model LTM.School.Core.Models.Enrollment
+@model LTM.School.Core.Models.Enrollment
 
 @{
     ViewData["Title"] = "Details";
@@ -10,6 +10,7 @@
     <h4>Enrollment</h4>
     <hr />
     <dl class="dl-horizontal">
+        @*ID.*@
         <dt>
             @Html.DisplayNameFor(model => model.EnrollmentId)
         </dt>
@@ -17,6 +18,7 @@
             @Html.DisplayFor(model => model.EnrollmentId)
         </dd>
 
+        @*Course ID.*@
         <dt>
             @Html.DisplayNameFor(model => model.CourseId)
         </dt>
@@ -24,6 +26,7 @@
             @Html.DisplayFor(model => model.CourseId)
         </dd>
 
+        @*Student ID.*@
         <dt>
             @Html.DisplayNameFor(model => model.StudentId)
         </dt>
@@ -31,6 +34,7 @@
             @Html.DisplayFor(model => model.StudentId)
         </dd>
 
+        @*Grade.*@
         <dt>
             @Html.DisplayNameFor(model => model.Grade)
         </dt>
